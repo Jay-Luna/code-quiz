@@ -9,15 +9,12 @@
     <link rel="stylesheet" href="./assets/css/style.css" />
 </head>
 
-
-
 <body>
     <header>
         <nav>
             <h4> View high Score</h4>
             <!-- default time =0, start timer when quiz starts. deduct 10 sec. when incorrect -->
-            <h4>Timer</h4>
-            
+            <h4>Timer</h4>           
         </nav>
     </header>
     <!-- intro -->
@@ -31,24 +28,20 @@
 
     <!-- Question starts -->
     <div class="container boxQuestion">
-        <h2 class="question">Quiz Question</h2>
-        <h3>quiz questions</h3>
+        <h2 class="question">Default Question</h2>
 
-        <form>
-            <ul class="quizChoices">
-                <button class="button1">first button</button>
-                <button class="button2">first button</button>
-                <button class="button3">first button</button>
-                <button class="button4">first button</button>
-            </ul>
-        </form>
+        <button class="a">Choice A</button>
+        <button class="b">Choice B</button>
+        <button class="c">Choice C</button>
+        <button class="d">Choice D</button>
+
         <p>text for answers</p>
     </div>
 
     <!-- question ends -->
 
     <!-- all done page with submission button. Pause Timer -->
-    <div>
+    <div class="container finalScore">
         <p>Finish! Here's Your Final Score</p>
         <!-- need to put the timer -->
         <p>Your final score is</p>
@@ -58,7 +51,7 @@
     </div>
 
     <!-- high scores page with "go back" & "clear high score" button -->
-    <div>
+    <div class="container highScore">
         <h2>High Scores</h2>
         <!-- create ordered list from local storage -->
         <button class="goback-button">go back</button>
