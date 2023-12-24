@@ -9,7 +9,17 @@
     <link rel="stylesheet" href="./assets/css/style.css" />
 </head>
 
+
+
 <body>
+    <header>
+        <nav>
+            <h4> View high Score</h4>
+            <!-- default time =0, start timer when quiz starts. deduct 10 sec. when incorrect -->
+            <h4>Timer</h4>
+            
+        </nav>
+    </header>
     <!-- intro -->
     <div class="container firstPage">
         <h1><strong>Coding Quiz Challenge</strong></h1>
@@ -32,14 +42,28 @@
                 <button class="button4">first button</button>
             </ul>
         </form>
+        <p>text for answers</p>
     </div>
+
     <!-- question ends -->
 
-    <!-- all done page with submission button -->
-    <div></div>
+    <!-- all done page with submission button. Pause Timer -->
+    <div>
+        <p>Finish! Here's Your Final Score</p>
+        <!-- need to put the timer -->
+        <p>Your final score is</p>
+        <p>enter your initials</p>
+        <!-- store initial & score into local storage -->
+        <button class="submit-button">Submit</button>
+    </div>
 
     <!-- high scores page with "go back" & "clear high score" button -->
-    <div></div>
+    <div>
+        <h2>High Scores</h2>
+        <!-- create ordered list from local storage -->
+        <button class="goback-button">go back</button>
+        <button class="clear-button">clear score</button>
+    </div>
 
 
 
