@@ -28,11 +28,38 @@ var answers = ["a", "d", "a", "a", "c"];
 var count = 0;
 var questionIndex = 0;
 
-var finalScore = document.querySelector(".finalScore");
+var timerEl = document.getElementById("timer");
+var timeLeft = 75;
+var timeInterval;
+
+var finalScoreEl = document.querySelector(".finalScore");
+var finalScoreValueEl = document.getElementById("final-score-value");
+
 var highScorePage = document.querySelector(".highScore");
 
+// Timer that counts down from 75
+function countdown() {  
+    // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
+    timeInterval = setInterval(function () {
+      // As long as the `timeLeft` is greater than 1
+      if (timeLeft > 1) {
+        // Set the `textContent` of `timerEl` to show the remaining seconds
+        timerEl.textContent =+ timeLeft;
+        // Decrement `timeLeft` by 1
+        timeLeft--;
+      } else {
+        // Once `timeLeft` gets to 0, set `timerEl` to an empty string
+        timerEl.textContent = '';
+        // Use `clearInterval()` to stop the timer
+        clearInterval(timeInterval);
+        // Call the `displayMessage()` function
+        // displayMessage();
+      }
+    }, 1000);
+  }
 
 function startQuiz() {
+    countdown();
     // "none" hides the firstPage
     firstPage.style.display = "none";
     boxQuestion.style.display = "flex";
@@ -50,14 +77,15 @@ function goToHighScorePage() {
     highScorePage.style.display = "flex";
     firstPage.style.display = "none";
     boxQuestion.style.display = "none";
-    finalScore.style.display = "none";
+    finalScoreEl.style.display = "none";
 }
 
 // hide question box
 function goToFinalScorePage() {
     console.log("goToFinalScore");
+    finalScoreValueEl.textContent = timeLeft;
     boxQuestion.style.display = "none";
-    finalScore.style.display = "flex";
+    finalScoreEl.style.display = "flex";
 }
 
 // define the function to change the HTML content
@@ -71,6 +99,7 @@ function changeQuestion() {
     dButton.innerHTML = question_choices[questionIndex + 3];
     questionIndex += 4;
     if (count == questions.length) {
+        clearInterval(timeInterval);
         goToFinalScorePage();
     }
 }
@@ -86,6 +115,7 @@ function verifyAnswer(event) {
     } else {
         // displayAnswer.innerHTML = "Wrong. :("
         console.log("isWrong");
+        timeLeft -= 10;
     }
 
     // show answer then change questions

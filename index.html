@@ -14,7 +14,7 @@
         <nav>
             <button id="high-score-link" class="link">View high scores</button>
             <!-- default time =0, start timer when quiz starts. deduct 10 sec. when incorrect -->
-            <h4>Timer</h4>
+            <p>Time: <span id="timer">0</span></p>
         </nav>
     </header>
     <!-- intro -->
@@ -44,7 +44,7 @@
     <div class="container finalScore">
         <p>Finish! Here's Your Final Score</p>
         <!-- need to put the timer -->
-        <p>Your final score is</p>
+        <p>Your final score is <span id="final-score-value"></span></span></p>
         <p>enter your initials</p>
         <!-- store initial & score into local storage -->
         <button class="submit-button">Submit</button>
