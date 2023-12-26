@@ -42,18 +42,18 @@ function countdown() {
     // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
     timeInterval = setInterval(function () {
       // As long as the `timeLeft` is greater than 1
-      if (timeLeft > 1) {
+      if (timeLeft > 0) {
         // Set the `textContent` of `timerEl` to show the remaining seconds
         timerEl.textContent =+ timeLeft;
         // Decrement `timeLeft` by 1
         timeLeft--;
       } else {
         // Once `timeLeft` gets to 0, set `timerEl` to an empty string
-        timerEl.textContent = '';
+        timerEl.textContent = timeLeft;
         // Use `clearInterval()` to stop the timer
         clearInterval(timeInterval);
         // Call the `displayMessage()` function
-        // displayMessage();
+        goToFinalScorePage();
       }
     }, 1000);
   }
