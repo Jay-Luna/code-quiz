@@ -11,10 +11,6 @@ var startButton = document.getElementById("start-button");
 var questionEl = document.getElementById("displayQuestion");
 var answerEl = document.getElementById("displayAnswer");
 var questionChoiceButtons = document.querySelectorAll(".questionChoice");
-var aButton = document.getElementById("a");
-var bButton = document.getElementById("b");
-var cButton = document.getElementById("c");
-var dButton = document.getElementById("d");
 
 // final page elements
 var finalScoreValueEl = document.getElementById("final-score-value");
@@ -83,11 +79,11 @@ function startQuiz() {
 // Method to set question & queston choice text content
 function setQuestionContent() {
     questionEl.innerHTML = questions[questionIndex];
-    aButton.innerHTML = choices[choiceIndex];
-    bButton.innerHTML = choices[choiceIndex + 1];
-    cButton.innerHTML = choices[choiceIndex + 2];
-    dButton.innerHTML = choices[choiceIndex + 3];
-    choiceIndex += 4; // index is always a factor of 4
+    // for every question choice set question content
+    for (let i = 0; i < questionChoiceButtons.length; i++) {
+        questionChoiceButtons[i].innerHTML = choices[choiceIndex];
+        choiceIndex++;
+    }
 }
 
 // Timer that counts down from 75
@@ -96,21 +92,7 @@ function startCountdown() {
     timeInterval = setInterval(function () {
         timerEl.textContent = timeLeft;
         timeLeft--;
-        checkQuizDone();
     }, 1000);
-}
-
-// checks if quiz is done and moves to final score page
-function checkQuizDone() {
-    // if time runs out or if questions are all answered
-    if (timeLeft < 1 || questionIndex == questions.length) {
-        // sets current time & final score
-        timerEl.textContent = timeLeft;
-        finalScoreValueEl.textContent = timeLeft;
-
-        clearInterval(timeInterval); // stops timer
-        goToNext(2); // go to final score page
-    }
 }
 
 // Method to verify answer of question
@@ -122,13 +104,10 @@ function verifyAnswer(event) {
         // deduct 10s for wrong answers
         displayAnswer.innerHTML = "Wrong! :(";
         timeLeft -= 10;
-        checkQuizDone();
     }
 
     // change question after 1 sec
-    setTimeout(function () {
-        changeQuestion();
-    }, 1000);
+    setTimeout(changeQuestion, 1000);
 }
 
 // Method to show next question text content
@@ -136,7 +115,15 @@ function changeQuestion() {
     displayAnswer.innerHTML = "";
     questionIndex++; // increase questionIndex by 1
     setQuestionContent();
-    checkQuizDone();
+    // if questions are all answered
+    if (questionIndex == questions.length) {
+        // sets current time & final score
+        timerEl.textContent = timeLeft;
+        finalScoreValueEl.textContent = timeLeft;
+
+        clearInterval(timeInterval); // stops timer
+        goToNext(2); // go to final score page
+    }
 }
 
 // save user initals & score to local storage
@@ -164,6 +151,7 @@ function goToHighScorePage() {
     navBar.style.display = "none";
     hideAllPages();
 
+    // get scoreList and sort by descending order
     var scoreList = JSON.parse(localStorage.getItem("scoreList")) || [];
     const orderedList = scoreList.sort((a, b) => a.score - b.score).reverse();
     scoreListEl.innerHTML = orderedList.map(i => `<li>${i.initials} - ${i.score}</li>`).join('');
