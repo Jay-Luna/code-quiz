@@ -24,18 +24,21 @@ var backButton = document.getElementById("back-button");
 var clearButton = document.getElementById("clear-button");
 
 // question content elements
-var questions = ['What does the typeof operator return for null?',
+var questions = [
+    'What does the type of operator return for nullWhat are the 3 ways to select HTML elements with CSS?',
     'What is the result of 3 + 2 + "7" in JavaScript?',
     'Which function is used to parse a string to an integer in JavaScript?',
-    'What does the === operator do in JavaScript?',
-    'Which keyword is used to declare a constant in JavaScript?'];
-var choices = ['object', 'null', 'undefined', 'number',
-    '12', '327', '43', '57', 'parseInt()', 'parseFloat()', 'toInteger()', 'stringToNumber()',
-    'Checks for value equality without type coercion',
-    'Checks for value equality with type coercion',
-    'Assigns a value to a variable',
-    'Compares two values and returns true if they are different',
-    'let', 'var', 'const', 'final'];
+    'What type of operator is "===" in JavaScript?',
+    'Which keyword is used to declare a variable in JavaScript?'];
+var choices = [
+    'Element selector, class selector and ID selectors.', 'none', 'Property selectors, Value Selectors, and Font Selectors.', 'Selector level 1, selector level 2 and selectors level 3.',
+    '12', '327', '43', '57', 
+    'parseInt()', 'parseFloat()', 'toInteger()', 'stringToNumber()',
+    'both have the same value & type',
+    'both do not have the same value & type',
+    'both have the same value',
+    'both have the same type',
+    'let', 'const', 'var', 'final'];
 var answers = ["a", "d", "a", "a", "c"];
 var questionIndex, choiceIndex;
 
@@ -51,7 +54,7 @@ function goToNext(currentIndex) {
     hideAllPages();
 
     // set & display page
-    localStorage.setItem("currentPage", pages[currentIndex]);
+    localStorage.setItem("currentPage", currentIndex);
     document.getElementById(pages[currentIndex]).style.display = "flex";
 }
 
@@ -82,7 +85,7 @@ function setQuestionContent() {
     // for every question choice set question content
     for (let i = 0; i < questionChoiceButtons.length; i++) {
         questionChoiceButtons[i].innerHTML = choices[choiceIndex];
-        choiceIndex++;
+        choiceIndex++; // increment by 1
     }
 }
 
@@ -91,23 +94,23 @@ function startCountdown() {
     // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
     timeInterval = setInterval(function () {
         timerEl.textContent = timeLeft;
-        timeLeft--;
-    }, 1000);
+        timeLeft--; // minus timeLeft by 1
+    }, 1000); // for every 1 sec, execute function
 }
 
 // Method to verify answer of question
 function verifyAnswer(event) {
     var userInput = event.target.getAttribute("id");
     if (answers[questionIndex] === userInput) {
-        displayAnswer.innerHTML = "Correct! :)";
+        displayAnswer.innerHTML = "Correct! 😊";
     } else {
         // deduct 10s for wrong answers
-        displayAnswer.innerHTML = "Wrong! :(";
+        displayAnswer.innerHTML = "Wrong! 😞";
         timeLeft -= 10;
     }
 
-    // change question after 1 sec
-    setTimeout(changeQuestion, 1000);
+    // pause for  .65 milli-sec then change question
+    setTimeout(changeQuestion, 650);
 }
 
 // Method to show next question text content
@@ -138,8 +141,9 @@ function saveInitials(event) {
 
     // add new submission to local storage
     localStorage.setItem("scoreList", JSON.stringify(scoreList));
-    initialsInput.value = "";
 
+    // reset default values
+    initialsInput.value = "";
     timeLeft = 75;
     timerEl.textContent = timeLeft;
     goToNext(0); // go back to first page
@@ -148,13 +152,14 @@ function saveInitials(event) {
 // Go to high score page & hide every other page
 function goToHighScorePage() {
     highScoreEl.style.display = "flex";
-    navBar.style.display = "none";
+    navBar.style.display = "none"; //when display = "none" it hides it
     hideAllPages();
 
     // get scoreList and sort by descending order
     var scoreList = JSON.parse(localStorage.getItem("scoreList")) || [];
-    const orderedList = scoreList.sort((a, b) => a.score - b.score).reverse();
-    scoreListEl.innerHTML = orderedList.map(i => `<li>${i.initials} - ${i.score}</li>`).join('');
+    const descOrderedList = scoreList.sort((a, b) => a.score - b.score).reverse();
+    scoreListEl.innerHTML = descOrderedList.map(user => `<li>${user.initials} - ${user.score}</li>`).join('');
+    // .map means transforming into another form. array -> join it into string (list of li html)
 }
 
 // Go to high score page to page stored in local storage
@@ -162,14 +167,14 @@ function goToPreviousPage() {
     highScoreEl.style.display = "none";
     navBar.style.display = "flex";
 
-    var previousPage = localStorage.getItem("currentPage");
-    document.getElementById(previousPage).style.display = "flex";
+    var pageIndex = localStorage.getItem("currentPage");
+    document.getElementById(pages[pageIndex]).style.display = "flex";
 }
 
 // Clear the high score list
 function clearHighScoreList() {
     localStorage.removeItem("scoreList");
-    goToHighScorePage();
+    scoreListEl.innerHTML = ""; //this resets it to back to an empty string
 }
 
 /** Click event listeners */

@@ -42,13 +42,13 @@
         <div class="column-container align-left" id="finalScoreCard">
             <h2>Finished!</h2>
             <!-- need to put the timer -->
-            <p>Your final score is <span id="final-score-value"></span>.</p>
+            <p><strong>Your final score is <span id="final-score-value"></span>.</strong></p>
             <form method="POST">
                 <div>
                     <label for="initials">Enter your initials: </label>
                     <input type="text" id="initials" name="initials" placeholder="e.g. JT">
                     <!-- store initial & score into local storage -->
-                    <button id="submit-button">Submit</button>
+                    <button class="otherButton" id="submit-button">Submit</button>
                 </div>
             </form>
         </div>
@@ -58,8 +58,8 @@
             <h2>High scores</h2>
             <!-- create ordered list from local storage -->
             <ol id="score-list"></ol>
-            <button id="back-button">Go back</button>
-            <button id="clear-button">Clear high scores</button>
+            <button class="otherButton" id="back-button">Go back</button>
+            <button class="otherButton" id="clear-button">Clear high scores</button>
         </div>
     </div>
 
