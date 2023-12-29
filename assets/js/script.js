@@ -25,10 +25,10 @@ var clearButton = document.getElementById("clear-button");
 
 // question content elements
 var questions = [
-    'What does the type of operator return for nullWhat are the 3 ways to select HTML elements with CSS?',
+    'What are the 3 ways to select HTML elements with CSS?',
     'What is the result of 3 + 2 + "7" in JavaScript?',
     'Which function is used to parse a string to an integer in JavaScript?',
-    'What type of operator is "===" in JavaScript?',
+    'What does this operator  "===" mean in JavaScript?',
     'Which keyword is used to declare a variable in JavaScript?'];
 var choices = [
     'Element selector, class selector and ID selectors.', 'none', 'Property selectors, Value Selectors, and Font Selectors.', 'Selector level 1, selector level 2 and selectors level 3.',
